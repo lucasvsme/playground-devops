@@ -1,0 +1,26 @@
+{
+    "variables": {
+        "docker_image_name": "com.example/packer-docker-shell-local",
+        "docker_image_tag": "latest"
+    },
+    "builders": [
+        {
+            "type": "docker",
+            "image": "alpine:latest",
+            "commit": true
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell-local",
+            "command": "ls -l"
+        }
+    ],
+    "post-processors": [
+        {
+            "type": "docker-tag",
+            "repository": "{{user `docker_image_name`}}",
+            "tag": "{{user `docker_image_tag`}}"
+        }
+    ]
+}
