@@ -1,0 +1,10 @@
+- hosts: localhost
+
+  tasks:
+    - name: Get list of files on root path
+      shell: ls -l
+      register: files_found
+
+    - name: Print list of files on root path
+      debug:
+        var: files_found
