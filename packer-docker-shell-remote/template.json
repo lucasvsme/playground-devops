@@ -1,0 +1,17 @@
+{
+    "builders": [
+        {
+            "type": "docker",
+            "image": "ubuntu:20.04",
+            "discard": true
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": [
+                "ls -l"
+            ]
+        }
+    ]
+}
