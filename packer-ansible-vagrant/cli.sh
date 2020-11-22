@@ -7,4 +7,13 @@ bake () {
     packer build "$packer_file"
 }
 
-bake
+task=$1
+
+case "$task" in
+    bake)
+        $task
+        ;;
+    *)
+        echo "./cli.sh [bake]"
+        ;;
+esac

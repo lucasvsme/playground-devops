@@ -27,8 +27,6 @@ case "$task" in
         $task
         ;;
     *)
-        bake
-        test
-        clean
+        echo "./cli.sh [bake|test|clean]"
         ;;
 esac
