@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: playground-config
+  labels:
+    app.kubernetes.io/name: playground
+data:
+  SERVER_URL: "http://example.com"
+  SERVER_PORT: "80"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: playground-deployment
+  labels:
+    app.kubernetes.io/name: playground
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: playground
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: playground
+    spec:
+      containers:
+      - name: playground-container
+        image: alpine:3
+        command:
+          - "/bin/sh"
+        args:
+          - "-c"
+          - "echo $(SERVER_URL):$(SERVER_PORT); sleep 10;"
+        envFrom:
+          - configMapRef:
+              name: playground-config
