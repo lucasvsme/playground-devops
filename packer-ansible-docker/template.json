@@ -18,7 +18,7 @@
                 "--name", 
                 "{{user `ansible_host`}}", 
                 "{{.Image}}", 
-                "/bin/bash"
+                "/bin/sh"
             ]
         }
     ],
