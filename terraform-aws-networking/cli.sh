@@ -5,6 +5,7 @@ access_key=""
 secret_key=""
 
 provision () {
+    terraform init
     terraform validate
     terraform apply -auto-approve \
         -var region="${region:=$AWS_REGION}" \
