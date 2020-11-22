@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: playground-deployment
+  labels:
+    app.kubernetes.io/name: playground
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: playground
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: playground
+    spec:
+      containers:
+      - name: playground-container
+        image: com.example/server:latest
+        imagePullPolicy: Never
+        ports:
+          - name: server-port
+            protocol: TCP
+            containerPort: 8080
+        livenessProbe:
+            httpGet:
+              port: server-port
+              path: /health
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
