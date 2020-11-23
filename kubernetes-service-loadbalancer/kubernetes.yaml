@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: playground-deployment
+  labels:
+    app.kubernetes.io/name: playground
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: playground
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: playground
+    spec:
+      containers:
+        - name: playground-container
+          image: com.example/server:latest
+          imagePullPolicy: Never
+          ports:
+            - name: server-port
+              protocol: TCP
+              containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: playground-service
+  labels:
+    app.kubernetes.io/name: playground
+spec:
+  selector:
+    app.kubernetes.io/name: playground
+  type: LoadBalancer
+  ports:
+    - name: server-port
+      protocol: TCP
+      port: 5000
+      targetPort: 8080
