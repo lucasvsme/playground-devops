@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  database:
+    image: postgres
+    ports:
+      - 5432:5432
+    networks:
+      - playground_devops
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+networks:
+  playground_devops:
+    driver: bridge
+
+volumes:
+  postgresql:
+  postgresql_data:
+
