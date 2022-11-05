@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  sonarqube:
+    image: sonarqube:community
+    ports:
+      - 9000:9000
+    networks:
+      - playground_devops
+    depends_on:
+      - database
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://database:5432/sonarqube
+      SONAR_JDBC_USERNAME: user
+      SONAR_JDBC_PASSWORD: password
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+  database:
+    image: postgres
+    networks:
+      - playground_devops
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: sonarqube
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+
+networks:                                                                                  
+  playground_devops:
+    driver: bridge
+
+volumes:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+  postgresql:
+  postgresql_data:
+
