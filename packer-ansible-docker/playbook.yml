@@ -1,13 +1,8 @@
-- hosts: all
-  become: yes
-  become_user: root
+- name: Install dependencies
+  hosts: 127.0.0.1
+  become: true
 
   tasks:
-    - name: Update APT cache
-      apt:
-        update_cache: yes
-    
     - name: Install Neofetch
       apt:
         name: neofetch
-        state: present
