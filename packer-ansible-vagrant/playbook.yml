@@ -1,4 +1,7 @@
-- hosts: localhost
+---
+- name: Debug box installation
+  hosts: 127.0.0.1
+  become: true
 
   tasks:
     - name: Get list of files on root path
