@@ -1,0 +1,8 @@
+---
+- name: Apply site to all hosts
+  hosts: all
+  connection: local
+  gather_facts: true
+  roles:
+    - role: nginx
+      tags: nginx

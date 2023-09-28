@@ -1,0 +1,24 @@
+---
+- name: Defining state folder
+  ansible.builtin.set_fact:
+    service_directory: "{{ role_path }}/state"
+
+- name: Create state directory
+  ansible.builtin.file:
+    state: directory
+    path: "{{ service_directory }}"
+    mode: "0755"
+
+- name: Install Nginx
+  become: true
+  ansible.builtin.apt:
+    pkg:
+      - nginx
+    state: present
+    update_cache: true
+
+- name: Copy Nginx configuration file
+  ansible.builtin.template:
+    src: nginx.conf
+    dest: "{{ service_directory }}/nginx.conf"
+    mode: "0400"

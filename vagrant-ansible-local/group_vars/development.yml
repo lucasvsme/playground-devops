@@ -1,0 +1,4 @@
+ansible_user: vagrant
+docker_network_name: main
+nginx_port: 80
+nginx_worker_connections: 1024

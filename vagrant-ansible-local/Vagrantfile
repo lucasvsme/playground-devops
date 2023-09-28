@@ -1,0 +1,32 @@
+ansible_home = "/home/vagrant/ansible"
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/jammy64"
+  config.vm.network "private_network", ip: "192.168.56.100"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.cpus = 2
+    vb.memory = "2048"
+  end
+
+  config.vm.provision "shell", inline: <<-SCRIPT
+    sudo apt-get update
+    sudo apt-get --yes install software-properties-common
+    sudo add-apt-repository --yes --update ppa:ansible/ansible
+    sudo apt-get install --yes ansible
+  SCRIPT
+
+  config.vm.provision "file", source: "site.yml", destination: "#{ansible_home}/site.yml"
+  config.vm.provision "file", source: "inventory.yml", destination: "#{ansible_home}/inventory.yml"
+  config.vm.provision "file", source: "roles", destination: "#{ansible_home}/roles"
+  config.vm.provision "file", source: "group_vars", destination: "#{ansible_home}/group_vars"
+
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.verbose = "v"
+    ansible.provisioning_path = ansible_home
+    ansible.playbook = "site.yml"
+    ansible.inventory_path = "inventory.yml"
+    ansible.limit = "development"
+    ansible.tags = "nginx"
+  end
+end
