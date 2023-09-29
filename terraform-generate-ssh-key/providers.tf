@@ -1,0 +1,5 @@
+provider "tls" {
+}
+
+provider "local" {
+}
