@@ -1,7 +1,2 @@
 .idea/
-
-output-vagrant/
 *.log
-
-.terraform/
-terraform.*
