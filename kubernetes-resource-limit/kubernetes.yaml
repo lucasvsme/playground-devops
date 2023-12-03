@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: playground-deployment
+  labels:
+    app.kubernetes.io/name: resource-limit
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: resource-limit
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: resource-limit
+    spec:
+      containers:
+        - name: playground-container
+          image: alpine:3
+          command:
+            - "sleep 20"
+          resources:
+            requests:
+              cpu: "0.1m"
+              memory: "64M"
+            limits:
+              cpu: "0.2m"
+              memory: "128M"
