@@ -25,13 +25,13 @@ spec:
         app.kubernetes.io/name: playground
     spec:
       containers:
-      - name: playground-container
-        image: alpine:3
-        command:
-          - "/bin/sh"
-        args:
-          - "-c"
-          - "echo $(USERNAME); echo $(PASSWORD); sleep 10;"
-        envFrom:
-          - secretRef:
-              name: playground-secret
+        - name: playground-container
+          image: alpine:3
+          command:
+            - "/bin/sh"
+          args:
+            - "-c"
+            - "echo $(USERNAME); echo $(PASSWORD); sleep 10;"
+          envFrom:
+            - secretRef:
+                name: playground-secret

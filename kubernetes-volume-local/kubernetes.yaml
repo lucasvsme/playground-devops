@@ -42,12 +42,12 @@ spec:
         app.kubernetes.io/name: playground
     spec:
       containers:
-      - name: playground-container
-        image: alpine:3
-        volumeMounts:
-          - name: playground-volume
-            mountPath: /mnt
+        - name: playground-container
+          image: alpine:3
+          volumeMounts:
+            - name: playground-volume
+              mountPath: /mnt
       volumes:
         - name: playground-volume
           persistentVolumeClaim:
-              claimName: playground-pvc
+            claimName: playground-pvc

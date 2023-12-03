@@ -8,9 +8,7 @@ data:
   some-script.sh: |-
     #!/bin/sh
     export MESSAGE="Hello World!"
-
     printenv
-
     sleep 10
 ---
 apiVersion: apps/v1
@@ -29,17 +27,17 @@ spec:
         app.kubernetes.io/name: playground
     spec:
       containers:
-      - name: playground-container
-        image: alpine:3
-        command:
-          - "/bin/sh"
-        args:
-          - "/bin/some-script.sh"
-        volumeMounts:
-          - name: playground-volume
-            mountPath: /bin/some-script.sh
-            subPathExpr: some-script.sh
-            readOnly: true
+        - name: playground-container
+          image: alpine:3
+          command:
+            - "/bin/sh"
+          args:
+            - "/bin/some-script.sh"
+          volumeMounts:
+            - name: playground-volume
+              mountPath: /bin/some-script.sh
+              subPathExpr: some-script.sh
+              readOnly: true
       volumes:
         - name: playground-volume
           configMap:

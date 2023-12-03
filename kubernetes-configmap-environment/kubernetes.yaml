@@ -24,13 +24,13 @@ spec:
         app.kubernetes.io/name: playground
     spec:
       containers:
-      - name: playground-container
-        image: alpine:3
-        command:
-          - "/bin/sh"
-        args:
-          - "-c"
-          - "echo $(SERVER_URL):$(SERVER_PORT); sleep 10;"
-        envFrom:
-          - configMapRef:
-              name: playground-config
+        - name: playground-container
+          image: alpine:3
+          command:
+            - "/bin/sh"
+          args:
+            - "-c"
+            - "echo $(SERVER_URL):$(SERVER_PORT); sleep 10;"
+          envFrom:
+            - configMapRef:
+                name: playground-config
